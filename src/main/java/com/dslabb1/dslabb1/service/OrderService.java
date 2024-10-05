@@ -24,4 +24,12 @@ public class OrderService {
     public List<Order> getOrders(int userId) throws SQLException {
         return orderDAO.getUserOrders(userId);
     }
+
+    public List<Order> getAllOrders() throws SQLException {
+        return orderDAO.getAllOrders();
+    }
+
+    public void packOrder(int id) throws SQLException {
+        orderDAO.packOrder(id);
+    }
 }

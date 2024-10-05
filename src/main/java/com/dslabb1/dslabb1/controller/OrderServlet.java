@@ -60,11 +60,11 @@ public class OrderServlet extends HttpServlet {
                 session.removeAttribute("cart");
 
                 request.setAttribute("message", "Your order has been placed successfully!");
+                request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
             }catch (SQLException e) {
                 request.setAttribute("message", "Failed to place the order. Please try again.");
+                request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
             }
         }
-
-        request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
     }
 }

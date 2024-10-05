@@ -138,4 +138,35 @@ public class OrderDAO extends BaseDAO{
 
         return orders;
     }
+
+    public List<Order> getAllOrders() throws SQLException {
+        String query = "SELECT id, date, status FROM orders WHERE status = 'PENDING'";
+
+        List<Order> orders = new ArrayList<>();
+
+        try(PreparedStatement stmt = connection.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt("id"),
+                        rs.getTimestamp("date"),
+                        rs.getString("status"),
+                        new ArrayList<>()
+                );
+                orders.add(order);
+            }
+        }
+
+        return orders;
+    }
+
+    public void packOrder(int id) throws SQLException {
+        String query = "UPDATE orders SET status = 'PACKED' WHERE id = ?";
+
+        try(PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
 }

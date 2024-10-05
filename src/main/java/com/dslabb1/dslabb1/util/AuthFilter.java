@@ -37,7 +37,7 @@ public class AuthFilter implements Filter {
         // User URLs (logged-in users)
         protectedUrls.put("/products", Arrays.asList("USER", "ADMIN", "WORKER"));
         protectedUrls.put("/cart", List.of("USER"));
-        protectedUrls.put("/orders", List.of("USER"));
+        protectedUrls.put("/order", List.of("USER"));
         // Add other URLs as needed
     }
 
