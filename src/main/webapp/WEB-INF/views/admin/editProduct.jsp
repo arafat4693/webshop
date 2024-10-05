@@ -18,6 +18,7 @@
 
 <div class="container mx-auto mt-8">
     <!-- Product Edit Form -->
+    <c:if test="${empty message}">
     <form action="${pageContext.request.contextPath}/admin/editProduct" method="post">
         <input type="hidden" name="id" value="${product.id}">
 
@@ -39,8 +40,9 @@
 
         <button type="submit" class="bg-green-500 text-white p-2 rounded">Save Changes</button>
     </form>
+    </c:if>
 
-    <a href="products" class="mt-5 inline-block text-blue-500">Back to Product List</a>
+    <a href="${pageContext.request.contextPath}/admin/products" class="mt-5 inline-block text-blue-500">Back to Product List</a>
 </div>
 
 </body>

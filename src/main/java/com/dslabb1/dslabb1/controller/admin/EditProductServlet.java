@@ -45,4 +45,21 @@ public class EditProductServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/admin/editProduct.jsp").forward(request, response);
         }
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int productId = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        double price = Double.parseDouble(request.getParameter("price"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        int categoryId = Integer.parseInt(request.getParameter("category_id"));
+
+        try {
+            productService.updateProduct(productId, name, price, stock, categoryId);
+            response.sendRedirect(request.getContextPath() + "/admin/products");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("message", "Error updating product.");
+            request.getRequestDispatcher("/WEB-INF/views/admin/editProduct.jsp").forward(request, response);
+        }
+    }
 }

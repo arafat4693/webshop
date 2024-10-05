@@ -36,4 +36,20 @@ public class ProductService {
     public Product getSingleProduct(int productId) throws SQLException {
         return productDAO.getProduct(productId);
     }
+
+    public void updateProduct(int productId, String name, double price, int stock, int categoryId) throws SQLException {
+        productDAO.editProduct(productId, name, price, stock, categoryId);
+    }
+
+    public void addNewCategory(String name) throws SQLException {
+        productDAO.addCategory(name);
+    }
+
+    public Category getSingleCategory(int id) throws SQLException {
+        return productDAO.getCategoryById(id);
+    }
+
+    public void updateCategory(int id, String name) throws SQLException {
+        productDAO.editCategory(id, name);
+    }
 }

@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/admin/products")
-public class AdminProductServlet extends HttpServlet {
+@WebServlet("/admin/categories")
+public class AdminCategoryServlet extends HttpServlet {
     private ProductService productService;
 
     @Override
@@ -24,34 +24,28 @@ public class AdminProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Product> products = productService.getAllProducts();
             List<Category> categories = productService.getCategories();
 
             // Set products and categories to request scope
-            request.setAttribute("products", products);
             request.setAttribute("categories", categories);
 
-            request.getRequestDispatcher("/WEB-INF/views/admin/products.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/categories.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("message", "Failed to load products or categories.");
-            request.getRequestDispatcher("/WEB-INF/views/admin/products.jsp").forward(request, response);
+            request.setAttribute("message", "Failed to load categories.");
+            request.getRequestDispatcher("/WEB-INF/views/admin/categories.jsp").forward(request, response);
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String name = request.getParameter("name");
-            double price = Double.parseDouble(request.getParameter("price"));
-            int stock = Integer.parseInt(request.getParameter("stock"));
-            int categoryId = Integer.parseInt(request.getParameter("category_id"));
-
-            productService.addProduct(name, price, stock, categoryId);
-            response.sendRedirect(request.getContextPath() + "/admin/products");
+            productService.addNewCategory(name);
+            response.sendRedirect(request.getContextPath() + "/admin/categories");
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("message", "Failed to add product.");
-            request.getRequestDispatcher("/WEB-INF/views/admin/products.jsp").forward(request, response);
+            request.setAttribute("message", "Failed to add category/Duplicate category name.");
+            request.getRequestDispatcher("/WEB-INF/views/admin/categories.jsp").forward(request, response);
         }
     }
 }

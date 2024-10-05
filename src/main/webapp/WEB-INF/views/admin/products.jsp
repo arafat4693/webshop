@@ -20,7 +20,7 @@
             </div>
             <!-- Navigation links -->
             <div>
-                <a href="" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Categories</a>
+                <a href="${pageContext.request.contextPath}/admin/categories" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Categories</a>
                 <a href="${pageContext.request.contextPath}/admin/products" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Products</a>
             </div>
             <!-- Logout button -->
@@ -85,11 +85,6 @@
                     <td>${product.stock}</td>
                     <td>${product.category}</td>
                     <td>
-                        <%-- <form action="${pageContext.request.contextPath}/admin/editProduct" method="get">
-                            <input type="hidden" name="id" value="${product.id}">
-                            <input type="hidden" name="action" value="editProduct">
-                            <button type="submit" class="bg-yellow-500 text-white p-2 rounded">Edit</button>
-                        </form> --%>
                         <a href="${pageContext.request.contextPath}/admin/editProduct?id=${product.id}" class="bg-yellow-500 text-white p-2 rounded inline-block">Edit</a>
                     </td>
                 </tr>

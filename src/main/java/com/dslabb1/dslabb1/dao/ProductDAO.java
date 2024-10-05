@@ -95,6 +95,18 @@ public class ProductDAO extends BaseDAO{
         return null;
     }
 
+    public Category getCategoryById(int id) throws SQLException {
+        String sql = "SELECT * FROM categories WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Category(rs.getInt("id"), rs.getString("name"));
+            }
+        }
+        return null;
+    }
+
     public List<Category> getAllCategories() throws SQLException {
         String sql = "SELECT * FROM categories";
         List<Category> categories = new ArrayList<>();
@@ -113,6 +125,25 @@ public class ProductDAO extends BaseDAO{
         return categories;
     }
 
+    public void addCategory(String name) throws SQLException {
+        String query = "INSERT INTO categories (name) VALUES (?)";
+
+        try(PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void editCategory(int id, String name) throws SQLException {
+        String query = "UPDATE categories SET name = ? WHERE id = ?";
+
+        try(PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
+
     public void addProduct(String name, double price, int stock, int categoryId) throws SQLException {
         String query = "INSERT INTO products (name, price, stock, category_id) VALUES (?, ?, ?, ?)";
 
@@ -126,17 +157,14 @@ public class ProductDAO extends BaseDAO{
         }
     }
 
-    private void editProduct(int productId, String name, double price, int stock, String categoryName) throws SQLException {
-        Category category = getCategoryByName(categoryName);
-        if(category == null) throw new SQLException();
-
+    public void editProduct(int productId, String name, double price, int stock, int categoryId) throws SQLException {
         String query = "UPDATE products SET name = ?, price = ?, stock = ?, category_id = ? WHERE id = ?";
 
         try(PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, name);
             stmt.setDouble(2, price);
             stmt.setInt(3, stock);
-            stmt.setInt(4, category.getId());
+            stmt.setInt(4, categoryId);
             stmt.setInt(5, productId);
 
             stmt.executeUpdate();
