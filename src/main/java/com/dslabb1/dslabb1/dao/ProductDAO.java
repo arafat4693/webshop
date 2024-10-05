@@ -1,7 +1,9 @@
 package com.dslabb1.dslabb1.dao;
 
 import com.dslabb1.dslabb1.model.CartItem;
+import com.dslabb1.dslabb1.model.Category;
 import com.dslabb1.dslabb1.model.Product;
+import com.dslabb1.dslabb1.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +39,27 @@ public class ProductDAO extends BaseDAO{
         return products;
     }
 
+    public Product getProduct(int productId) throws SQLException {
+        String query = "SELECT p.id, p.name, p.price, p.stock, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, productId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("category"),
+                        rs.getInt("stock")
+                );
+            }
+        }
+
+        return null;
+    }
+
     public List<CartItem> allCartItems(HashMap<Integer, Integer> cart) throws SQLException {
         List<CartItem> cartItems = new ArrayList<>();
 
@@ -58,5 +81,65 @@ public class ProductDAO extends BaseDAO{
         }
 
         return cartItems;
+    }
+
+    public Category getCategoryByName(String name) throws SQLException {
+        String sql = "SELECT * FROM categories WHERE name = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Category(rs.getInt("id"), rs.getString("name"));
+            }
+        }
+        return null;
+    }
+
+    public List<Category> getAllCategories() throws SQLException {
+        String sql = "SELECT * FROM categories";
+        List<Category> categories = new ArrayList<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Category category = new Category(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                );
+                categories.add(category);
+            }
+        }
+
+        return categories;
+    }
+
+    public void addProduct(String name, double price, int stock, int categoryId) throws SQLException {
+        String query = "INSERT INTO products (name, price, stock, category_id) VALUES (?, ?, ?, ?)";
+
+        try(PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.setDouble(2, price);
+            stmt.setInt(3, stock);
+            stmt.setInt(4, categoryId);
+
+            stmt.executeUpdate();
+        }
+    }
+
+    private void editProduct(int productId, String name, double price, int stock, String categoryName) throws SQLException {
+        Category category = getCategoryByName(categoryName);
+        if(category == null) throw new SQLException();
+
+        String query = "UPDATE products SET name = ?, price = ?, stock = ?, category_id = ? WHERE id = ?";
+
+        try(PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.setDouble(2, price);
+            stmt.setInt(3, stock);
+            stmt.setInt(4, category.getId());
+            stmt.setInt(5, productId);
+
+            stmt.executeUpdate();
+        }
     }
 }

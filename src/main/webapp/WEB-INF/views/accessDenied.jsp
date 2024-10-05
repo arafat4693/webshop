@@ -22,7 +22,7 @@
         <h2 class="text-4xl font-semibold text-gray-800 mt-4">Access Denied</h2>
         <p class="text-gray-600 mt-2">You do not have permission to view this page.</p>
         <div class="mt-8">
-            <a href="login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+            <a href="${pageContext.request.contextPath}/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
                 Go to Login
             </a>
         </div>

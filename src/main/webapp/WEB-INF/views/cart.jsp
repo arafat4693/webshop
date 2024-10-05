@@ -21,7 +21,7 @@
             <!-- Navigation links -->
             <div>
                 <a href="cart" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Cart</a>
-                <a href="#" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Orders</a>
+                <a href="order" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Orders</a>
                 <a href="products" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Products</a>
             </div>
             <!-- Logout button -->
@@ -37,7 +37,7 @@
 <h1 class="text-2xl text-center mt-10">Your Cart</h1>
 
 <c:if test="${not empty message}">
-    <p class="text-center mt-5 text-red-500 text-lg">${message}</p>
+    <p class="text-center mt-5 text-green-500 text-lg">${message}</p>
 </c:if>
 
 <c:if test="${not empty cartItems}">
@@ -62,7 +62,11 @@
             </c:forEach>
             </tbody>
         </table>
-        <h2 class="text-xl mt-10">Total Price: $${totalPrice}</h2>
+        <h2 class="text-xl mt-10 mb-10">Total Price: $${totalPrice}</h2>
+
+        <form action="order" method="post">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block mt-2">Order</button>
+        </form>
     </div>
 </c:if>
 </body>

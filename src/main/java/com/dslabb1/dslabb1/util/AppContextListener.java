@@ -1,7 +1,9 @@
 package com.dslabb1.dslabb1.util;
 
+import com.dslabb1.dslabb1.dao.OrderDAO;
 import com.dslabb1.dslabb1.dao.ProductDAO;
 import com.dslabb1.dslabb1.dao.UserDAO;
+import com.dslabb1.dslabb1.service.OrderService;
 import com.dslabb1.dslabb1.service.ProductService;
 import com.dslabb1.dslabb1.service.UserService;
 import jakarta.servlet.ServletContext;
@@ -26,16 +28,16 @@ public class AppContextListener implements ServletContextListener {
 
             UserDAO userDAO = new UserDAO(connection);
             ProductDAO productDAO = new ProductDAO(connection);
-            // OrderDAO orderDAO = new OrderDAO(connection);
+            OrderDAO orderDAO = new OrderDAO(connection);
 
             UserService userService = new UserService(userDAO);
             ProductService productService = new ProductService(productDAO);
-            // OrderService orderService = new OrderService(orderDAO, productDAO);
+            OrderService orderService = new OrderService(orderDAO, productDAO);
 
             context.setAttribute("userService", userService);
             context.setAttribute("test", "userService");
             context.setAttribute("productService", productService);
-            // context.setAttribute("orderService", orderService);
+            context.setAttribute("orderService", orderService);
 
             System.out.println("Webshop application initialized.");
         } catch (Exception e) {

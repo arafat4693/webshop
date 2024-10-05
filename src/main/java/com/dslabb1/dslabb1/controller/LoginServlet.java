@@ -36,7 +36,11 @@ public class LoginServlet extends HttpServlet {
             if(user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                response.sendRedirect(request.getContextPath() + "/products");
+                if ("ADMIN".equals(user.getRole())) {
+                    response.sendRedirect(request.getContextPath() + "/admin");
+                }else{
+                    response.sendRedirect(request.getContextPath() + "/products");
+                }
             }else {
                 request.setAttribute("errorMessage", "Invalid credentials. Please try again.");
                 request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);

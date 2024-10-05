@@ -1,10 +1,10 @@
 package com.dslabb1.dslabb1.controller;
 
-import com.dslabb1.dslabb1.HelloServlet;
 import com.dslabb1.dslabb1.model.CartItem;
 import com.dslabb1.dslabb1.service.ProductService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @WebServlet("/cart")
-public class CartServlet extends HelloServlet {
+public class CartServlet extends HttpServlet {
     private ProductService productService;
 
     @Override

@@ -23,7 +23,7 @@
             <!-- Navigation links -->
             <div>
                 <a href="cart" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Cart</a>
-                <a href="#" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Orders</a>
+                <a href="order" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Orders</a>
                 <a href="products" class="text-gray-800 hover:text-gray-600 font-semibold mr-6">Products</a>
             </div>
             <!-- Logout button -->
