@@ -9,6 +9,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+
+<nav class="bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo -->
+            <div class="text-2xl font-bold text-gray-800">
+                Webshop
+            </div>
+            <!-- Logout button -->
+            <div>
+                <a href="${pageContext.request.contextPath}/logout" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <h1 class="text-2xl text-center mt-10">Orders to Pack</h1>
 
 <c:if test="${not empty message}">
