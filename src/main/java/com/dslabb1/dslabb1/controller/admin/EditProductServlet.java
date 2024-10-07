@@ -1,5 +1,7 @@
 package com.dslabb1.dslabb1.controller.admin;
 
+import com.dslabb1.dslabb1.controller.CategoryInfo;
+import com.dslabb1.dslabb1.controller.ProductInfo;
 import com.dslabb1.dslabb1.model.Category;
 import com.dslabb1.dslabb1.model.Product;
 import com.dslabb1.dslabb1.service.ProductService;
@@ -27,13 +29,13 @@ public class EditProductServlet extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("id"));
 
         try {
-            Product product = productService.getSingleProduct(productId);
+            ProductInfo product = productService.getSingleProduct(productId);
             if(product == null) {
                 request.setAttribute("message", "Invalid product Id.");
                 request.getRequestDispatcher("/WEB-INF/views/admin/editProduct.jsp").forward(request, response);
             }
 
-            List<Category> categories = productService.getCategories();
+            List<CategoryInfo> categories = productService.getCategories();
 
             request.setAttribute("product", product);
             request.setAttribute("categories", categories);

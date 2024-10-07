@@ -33,7 +33,7 @@ public class OrderServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         try {
-            List<Order> orders = orderService.getOrders(user.getId());
+            List<OrderInfo> orders = orderService.getOrders(user.getId());
             // Set the orders list in the request scope
             request.setAttribute("orders", orders);
         }catch (SQLException e) {

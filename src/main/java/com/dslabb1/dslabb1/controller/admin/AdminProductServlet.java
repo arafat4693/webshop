@@ -1,5 +1,7 @@
 package com.dslabb1.dslabb1.controller.admin;
 
+import com.dslabb1.dslabb1.controller.CategoryInfo;
+import com.dslabb1.dslabb1.controller.ProductInfo;
 import com.dslabb1.dslabb1.model.Category;
 import com.dslabb1.dslabb1.model.Product;
 import com.dslabb1.dslabb1.service.ProductService;
@@ -24,8 +26,8 @@ public class AdminProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Product> products = productService.getAllProducts();
-            List<Category> categories = productService.getCategories();
+            List<ProductInfo> products = productService.getAllProducts();
+            List<CategoryInfo> categories = productService.getCategories();
 
             // Set products and categories to request scope
             request.setAttribute("products", products);

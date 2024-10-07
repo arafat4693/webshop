@@ -1,5 +1,6 @@
 package com.dslabb1.dslabb1.controller.admin;
 
+import com.dslabb1.dslabb1.controller.CategoryInfo;
 import com.dslabb1.dslabb1.model.Category;
 import com.dslabb1.dslabb1.model.Product;
 import com.dslabb1.dslabb1.service.ProductService;
@@ -26,7 +27,7 @@ public class EditCategoryServlet extends HttpServlet {
         int categoryId = Integer.parseInt(request.getParameter("id"));
 
         try {
-            Category category = productService.getSingleCategory(categoryId);
+            CategoryInfo category = productService.getSingleCategory(categoryId);
             if(category == null) {
                 request.setAttribute("message", "Invalid category Id.");
                 request.getRequestDispatcher("/WEB-INF/views/admin/editCategory.jsp").forward(request, response);

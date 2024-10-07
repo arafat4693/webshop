@@ -1,6 +1,7 @@
 package com.dslabb1.dslabb1.service;
 
 import com.dslabb1.dslabb1.dao.UserDAO;
+import com.dslabb1.dslabb1.controller.UserInfo;
 import com.dslabb1.dslabb1.model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -13,12 +14,16 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public User authenticate(String username, String password) throws SQLException {
+    public UserInfo authenticate(String username, String password) throws SQLException {
         User user = userDAO.getUserByUsername(username);
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-            return user;
+            return convertToUserInfo(user);
         }
         return null;
+    }
+
+    private UserInfo convertToUserInfo(User user) {
+        return new UserInfo(user.getId(), user.getUsername(), user.getRole());
     }
 
     public void registerUser(String username, String password) throws SQLException {

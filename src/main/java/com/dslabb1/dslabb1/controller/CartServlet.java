@@ -33,7 +33,7 @@ public class CartServlet extends HttpServlet {
             request.setAttribute("message", "Your cart is empty.");
         } else {
             try {
-                List<CartItem> cartItems = productService.getAllCartItems(cart);
+                List<CartItemInfo> cartItems = productService.getAllCartItems(cart);
                 request.setAttribute("cartItems", cartItems);
                 request.setAttribute("totalPrice", calculateTotal(cartItems));
             } catch (SQLException e) {
@@ -45,9 +45,9 @@ public class CartServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
     }
 
-    private double calculateTotal(List<CartItem> cartItems) {
+    private double calculateTotal(List<CartItemInfo> cartItems) {
         double total = 0;
-        for(CartItem c : cartItems) total += c.getPrice()*c.getQuantity();
+        for(CartItemInfo c : cartItems) total += c.getPrice()*c.getQuantity();
         return total;
     }
 

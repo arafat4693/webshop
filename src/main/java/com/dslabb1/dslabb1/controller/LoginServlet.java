@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try{
-            User user = userService.authenticate(username, password);
+            UserInfo user = userService.authenticate(username, password);
             if(user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);

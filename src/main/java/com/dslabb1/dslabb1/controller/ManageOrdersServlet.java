@@ -23,7 +23,7 @@ public class ManageOrdersServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Order> orders = orderService.getAllOrders();
+            List<OrderInfo> orders = orderService.getAllOrders();
             request.setAttribute("orders", orders);
             request.getRequestDispatcher("/WEB-INF/views/manageOrders.jsp").forward(request, response);
         } catch (SQLException e) {
